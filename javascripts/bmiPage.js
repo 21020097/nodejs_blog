@@ -1,0 +1,1 @@
+$(document).ready((event)=>{alert('1')})
