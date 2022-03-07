@@ -48,12 +48,19 @@ router.get('/bmi', async (req, res) => {
 router.get('/bmiPage',async (req,res)=>{
     res.render('bmiPage')
 })
-    
+
+router.get('/show',async(req,res)=>{
+    //res.JSON(list);
+    res.send(list);
+    return ;
+})
+
 router.post('/add',async(req,res)=>{
+    console.log("123");
     let {id,name} = req.body;
     list.push({id: parseInt(id),
-               name: JSON.stringify(name) });
-    res.JSON(list);
+               name: name });
+    res.send(list);
 })
 
 module.exports = router
