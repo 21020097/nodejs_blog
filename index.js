@@ -6,6 +6,7 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname,'javascripts')))
+var mysql = require('mysql');
 
 const systemInfo = require('./routes/systemInfo');
 const Redirect = require('./routes/redirect');
@@ -32,3 +33,18 @@ app.use('/files',file);
 app.use('/users',users);
 
 app.use((req,res)=> res.status(404).sendFile(path.join(__dirname)+'/error404.html'));
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "yourusername",
+    password: "yourpassword",
+    database: "quanlydangkikhoahoc",
+})
+
+con.connect(()=>{
+    //if(err) throw err;
+    console.log("Connected!");
+    //con.query("CREATE DATABASE mydb", (result)=> console.log("Database created"))
+    var sql = "CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))";
+    con.query(sql,(result)=>console.log("table created!"))
+});
